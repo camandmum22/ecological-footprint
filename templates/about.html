@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="Camilo Muñoz">
+
+        <title>Huella Energetica</title>
+         <link href="{{ STATIC_URL }}CSS/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="{{ STATIC_URL }}CSS/navbar.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}CSS/style.css" rel="stylesheet">
+        <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        <script type="text/javascript">
+            function init(diccionario) {
+                title = diccionario['title']
+            }
+        //window.setInterval("inicio()",3000);
+        </script>
+    </head>
+
+    <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+             <a class="navbar-brand" href="#">Huella Energetica</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/about">Conoce el proyecto</a></li>
+                <li><a href="/consultar">Consultar</a></li>
+                <li><a href="/graficar">Graficar</a></li>
+              <li><a href="/exportar">Exportar</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {% if user.is_authenticated %} {{ user.username }} {% else %} Visitante {% endif %} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" data-toggle="modal" data-target="#myModal"> {% if user.is_authenticated %} <a href="/cerrar"> Salir {% else %} Log-in {% endif %} </a> </li>
+
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+
+    </div>
+
+    <div class="container">
+
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Log-in</h4>
+        </div>
+        <div class="modal-body">
+        <form method="POST" action="{% url 'django.contrib.auth.views.login' %}" class="form-horizontal"> {% csrf_token %}
+            <div class="form-group">
+                <label for="instalaciones"  class="col-lg-2 control-label" >Usuario:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" id="instalaciones"  name="username" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="instalaciones" class="col-lg-2 control-label" >Password:</label>
+                <div class="col-lg-8">
+                    <input type="password" class="form-control" id="instalaciones"  name="password" required>
+                </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary">Log-in</button >
+              </div>
+            </div>
+          </form>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+        <div class="container">
+            <!--
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="graficaTorta">  Total Productos:
+                    <div id="chart_div1"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div id="OEE"> OEE:
+                        <div id="table_div"></div>
+                    </div>
+                </div>
+            </div>
+            -->
+              <div class="center-block">
+                <p>Con este proyecto se plantea el diseño y la implementación de un sistema de información
+                    que permita determinar la huella energética de la Universidad Icesi. El análisis de la
+                    huella energética, permite cuantificar el consumo energético de las instalaciones físicas del campus.
+                    Además, su uso en conjunto con el sistema de información planteado en este proyecto,
+                    permite sectorizar el consumo energético entre las diferentes dependencias u oficinas de la universidad.
+                </p>
+                   <p>La idea del desarrollo de este sistema, surge en medio del panorama mundial actual, que
+                   promueve la temática de la preocupación ambiental y el uso eficiente de los recursos
+                   naturales, en donde la participación de las instituciones educativas en esta temática, cobra
+                   gran importancia. También, la implementación de este sistema, representa el primer paso
+                   para conocer la situación actual de la universidad respecto al consumo energético, y con
+                   base en ella, poder elaborar planes de gestión a largo plazo, que permitan no solo una
+                   disminución del consumo sino también una reducción en el gasto monetario asociado a ese consumo.</p>
+
+                   <p>Para el desarrollo del proyecto, se plantea el uso del modelo de Cascada en V, en conjunto
+                       con las siguientes fases: Comunicación, Planeación, Diseño, Implementación, Pruebas y
+                       con las siguientes fases: Comunicación, Planeación, Diseño, Implementación, Pruebas y
+                       y la lista de entregables con los cuales se contara, luego de ejecutar las actividades
+                       planteadas. Para la exitosa realización de estas fases, se define el cronograma de trabajo, el
+                       cual asocia cada actividad con su duración y la persona encargada
+                </p>
+                        <div id="message"></div>
+                </div>
+      </div>
+    </div>
+  </body>
+</html>
